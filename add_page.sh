@@ -17,10 +17,8 @@ jupyter nbconvert --execute --to html $JNB
 
 echo "Now you should do the following:"
 echo "git checkout pages"
-echo "git checkout master $1.html"
-echo "vim index.md"
 echo "git add $1.html"
+echo "vim index.md"
 echo "git commit -a"
-echo "git push"
+echo "git push --all origin"
 echo "git checkout master"
-echo "rm $1.html"
