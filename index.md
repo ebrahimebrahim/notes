@@ -1,3 +1,3 @@
-This is a test
+Demos of some ideas in the textbook.
 
-[link](a_page.html)
+[ch4](ch4.html)
