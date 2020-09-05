@@ -13,7 +13,7 @@ then
         echo "File $HTML does not exist; just a warning."
 fi
 
-rm $HTML ~/.trash
+rm $HTML
 git checkout master $JNB
 jupyter nbconvert --execute --to html $JNB
 rm $JNB
