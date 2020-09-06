@@ -14,10 +14,10 @@ then
         echo "File $HTML does not exist; just a warning."
 fi
 
-rm $HTML
+rm -f $HTML
 git checkout master $JNB
 jupyter nbconvert --execute --to html $JNB
-rm $JNB
+git rm $JNB
 
 echo "Now you should do the following:"
 echo "git add $HTML"
