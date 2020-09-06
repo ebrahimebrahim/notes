@@ -17,7 +17,6 @@ rm -rf .ipynb
 git add $HTML
 
 echo "Now you should do the following:"
-echo "git add $HTML"
 echo "vim index.md"
 echo "git commit -a"
 echo "git push --all origin"
