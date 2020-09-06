@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e
+source ~/venv/bin/activate
 
 # This should export the requested jupyter notebook to HTML and add the html file to the pages branch,
 # for the purpose of github pages
