@@ -9,15 +9,12 @@ source ~/venv/bin/activate
 HTML=$1.html
 JNB=$1.ipynb
 
-if ! [[ -f $HTML ]]
-then
-        echo "File $HTML does not exist; just a warning."
-fi
-
-rm -f $HTML
-git checkout master $JNB
+rm -f $JNB
+git show master:$JNB > $JNB
 jupyter nbconvert --execute --to html $JNB
-git rm $JNB
+rm $JNB
+rm -rf .ipynb
+git add $HTML
 
 echo "Now you should do the following:"
 echo "git add $HTML"
