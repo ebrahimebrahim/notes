@@ -11,7 +11,7 @@ JNB=$1.ipynb
 
 rm -f $JNB
 git show master:$JNB > $JNB
-jupyter nbconvert --execute --to html $JNB
+jupyter nbconvert --to html $JNB
 rm $JNB
 rm -rf .ipynb
 git add $HTML
