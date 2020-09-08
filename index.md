@@ -1,3 +1,3 @@
 Demos of some ideas in the textbook.
 
-[ch4](ch4.html)
+[Section 4.1.3: Least Squares for Classificaion](sec4.1.3.html)
