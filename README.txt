@@ -1,6 +1,2 @@
-I will try to take notes here in Jupyter notebooks while reading
-
-Bishop's
-Pattern Recognition and Machine Learning
-Published by Springer in 2006
-
+My own notes from anything I might be studying,
+especially stuff that fits nicely in a jupyter notebook.
