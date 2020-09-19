@@ -12,7 +12,7 @@ def findAlphabeticallyLastWord(text):
     You might find max() and list comprehensions handy here.
     """
     # BEGIN_YOUR_CODE (our solution is 1 line of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    return sorted(text.split())[-1]
     # END_YOUR_CODE
 
 ############################################################
@@ -24,7 +24,7 @@ def euclideanDistance(loc1, loc2):
     are pairs of numbers (e.g., (3, 5)).
     """
     # BEGIN_YOUR_CODE (our solution is 1 line of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    return math.sqrt((loc1[0] - loc2[0])**2 + (loc1[1]-loc2[1])**2)
     # END_YOUR_CODE
 
 ############################################################
@@ -50,7 +50,19 @@ def mutateSentences(sentence):
                 (reordered versions of this list are allowed)
     """
     # BEGIN_YOUR_CODE (our solution is 20 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    words = sentence.split()
+    word_set = set(words)
+    def sents_w_n_words_that_start_with(starter_word,n):
+        if n==1: return [[starter_word]]
+        words_that_can_appear_after_starter = set(words[i+1] for i in range(len(words)-1) if words[i]==starter_word)
+        out2 = []
+        for word in words_that_can_appear_after_starter:
+            out2 += [[starter_word]+sent for sent in sents_w_n_words_that_start_with(word,n-1)]
+        return out2
+    out = []
+    for word in word_set:
+        out += sents_w_n_words_that_start_with(word,len(words))
+    return [" ".join(s) for s in out]
     # END_YOUR_CODE
 
 ############################################################
@@ -64,7 +76,8 @@ def sparseVectorDotProduct(v1, v2):
     This function will be useful later for linear classifiers.
     """
     # BEGIN_YOUR_CODE (our solution is 4 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    keys = set(v1.keys()).union(v2.keys())
+    return sum(v1[i]*v2[i] for i in keys)
     # END_YOUR_CODE
 
 ############################################################
@@ -76,7 +89,8 @@ def incrementSparseVector(v1, scale, v2):
     This function will be useful later for linear classifiers.
     """
     # BEGIN_YOUR_CODE (our solution is 2 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    for i in v2.keys():
+        v1[i] += scale*v2[i]
     # END_YOUR_CODE
 
 ############################################################
@@ -89,12 +103,15 @@ def findSingletonWords(text):
     You might find it useful to use collections.defaultdict(int).
     """
     # BEGIN_YOUR_CODE (our solution is 4 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    word_list = text.split()
+    word_appears_once = lambda word : word not in word_list[word_list.index(word)+1:]
+    return set(filter(word_appears_once,word_list))
     # END_YOUR_CODE
 
 ############################################################
 # Problem 3g
 
+cache = {}
 def computeLongestPalindromeLength(text):
     """
     A palindrome is a string that is equal to its reverse (e.g., 'ana').
@@ -105,5 +122,15 @@ def computeLongestPalindromeLength(text):
     You should first define a recurrence before you start coding.
     """
     # BEGIN_YOUR_CODE (our solution is 19 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    if text in cache.keys():
+        return cache[text]
+    answer = 0
+    if len(text) <= 1 :
+        answer = len(text)
+    elif text[0] == text[-1]:
+        answer = 2 + computeLongestPalindromeLength(text[1:-1])
+    else:
+        answer = max(computeLongestPalindromeLength(text[:i] + text[(i+1):]) for i in range(len(text)))
+    cache[text] = answer
+    return answer
     # END_YOUR_CODE
