@@ -22,7 +22,8 @@ def extractWordFeatures(x):
     Example: "I am what I am" --> {'I': 2, 'am': 2, 'what': 1}
     """
     # BEGIN_YOUR_CODE (our solution is 4 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    words = x.split()
+    return {word:len(list(filter(lambda w:w==word,words))) for word in words}
     # END_YOUR_CODE
 
 ############################################################
