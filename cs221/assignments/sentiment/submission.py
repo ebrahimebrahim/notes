@@ -124,10 +124,43 @@ def extractCharacterFeatures(n):
         # END_YOUR_CODE
     return extract
 
+##############################################################
+def sp_sdist(d1,d2):
+    """Returns squared distance between two sparse vectors.
+    This was super inefficient to use in the actual calculation so I ended up not us"""
+    sdist = 0
+    for key,val1 in d1.items():
+        sdist += (val1 - d2.get(key, 0))**2
+    for key, val2 in d2.items():
+        if not key in d1.keys():
+            sdist += val2**2
+    return sdist
+
+def nearest_index(spvec, centers, center_sq_sums):
+    """Return the index of the item in center which is closest to spvec.
+    Here spvec is a sparse vector and centers is a list of sparse vectors.
+    The object center_sq_sums should be a pre-computed list of squared norms
+    of the items in centers."""
+    # The following list consists of
+    # |spvec - mu|^2 - |spvec|^2  = |mu|^2 - 2 spvec . mu
+    # running over all mu in centers
+    l = [sqnorm_of_mu - 2 * dotProduct(spvec,mu) for mu,sqnorm_of_mu in zip(centers,center_sq_sums)]
+    return l.index(min(l))
+
+def sp_centroid(vs):
+    """Returns centroid (as sparse vec) of a list of sparse vectors"""
+    c = {}
+    for v in vs:
+        increment(c,1,v)
+    return scl(1/float(len(vs)),c)
+
+def cluster_loss(cluster,center):
+    return len(cluster)*dotProduct(center,center) +\
+        sum(dotProduct(pt,pt) - 2*dotProduct(pt,center) for pt in cluster)
+
 ############################################################
 # Problem 4: k-means
 ############################################################
-
 
 def kmeans(examples, K, maxIters):
     '''
@@ -139,5 +172,23 @@ def kmeans(examples, K, maxIters):
             final reconstruction loss)
     '''
     # BEGIN_YOUR_CODE (our solution is 25 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    centers = random.sample(examples,K)
+    z = None
+    for i in range(maxIters):
+        
+        center_sq_sums = [dotProduct(center,center) for center in centers]
+        new_z = np.array([nearest_index(spvec,centers,center_sq_sums) for spvec in examples])
+        if (not z is None) and np.equal(z,new_z).all() : break
+        z = new_z
+        
+        clusters = [[examples[n] for n in range(len(examples)) if z[n]==j] for j in range(len(centers))]
+        
+        centers = np.array([sp_centroid(cluster) for cluster in clusters])
+    
+    center_sq_sums = [dotProduct(center,center) for center in centers]
+    z = np.array([nearest_index(spvec,centers,center_sq_sums) for spvec in examples])
+    clusters = [[examples[n] for n in range(len(examples)) if z[n]==j] for j in range(len(centers))]
+    loss = sum(cluster_loss(cluster,center) for cluster,center in zip(clusters,centers))
+    
+    return centers, z, loss
     # END_YOUR_CODE
