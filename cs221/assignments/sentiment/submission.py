@@ -29,6 +29,12 @@ def extractWordFeatures(x):
 ############################################################
 # Problem 3b: stochastic gradient descent
 
+import numpy as np
+
+def scl(s,v):
+    """return s*v where is a scalar and v is a sparse vector"""
+    return {key:s*val for key,val in v.items()}
+
 def learnPredictor(trainExamples, testExamples, featureExtractor, numIters, eta):
     '''
     Given |trainExamples| and |testExamples| (each one is a list of (x,y)
@@ -44,7 +50,32 @@ def learnPredictor(trainExamples, testExamples, featureExtractor, numIters, eta)
     '''
     weights = {}  # feature => weight
     # BEGIN_YOUR_CODE (our solution is 12 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    def loss_hinge(x,y,w):
+        return max(0,1-y * dotProduct(w,x))
+
+    def ave_loss(data,w):
+        return np.array([loss_hinge(x,y,w) for x,y in data]).mean()
+
+    def error_rate(data,w):
+        return sum(int(dotProduct(w,x)*y <= 0) for x,y in data)/float(len(data))
+
+    def loss_hinge_grad(x,y,w):
+        if 1 - (y*dotProduct(w,x)) <= 0 : return scl(0,x)
+        else: return scl(-y,x)
+
+    trainExamplesF = np.array([[featureExtractor(x),y] for x,y in trainExamples])
+    testExamplesF = np.array([[featureExtractor(x),y] for x,y in testExamples])
+
+    for i in range(numIters):
+        print("Iteration {}:\n\tTraining loss:\t{}\n\tTest loss:\t{}\n\tTraining error rate:\t{}\n\tTest error rate:\t{}".format(
+            i,
+            ave_loss(trainExamplesF,weights),
+            ave_loss(testExamplesF,weights),
+            error_rate(trainExamplesF,weights),
+            error_rate(testExamplesF,weights)
+        ))
+        for x,y in trainExamplesF:
+            increment(weights,-eta,loss_hinge_grad(x,y,weights))
     # END_YOUR_CODE
     return weights
 
@@ -63,7 +94,9 @@ def generateDataset(numExamples, weights):
     # y should be 1 or -1 as classified by the weight vector.
     def generateExample():
         # BEGIN_YOUR_CODE (our solution is 2 lines of code, but don't worry if you deviate from this)
-        raise Exception("Not implemented yet")
+        keys = random.sample(weights.keys(),random.randint(1,len(weights.keys())))
+        phi = {k:abs(int(random.gauss(0,2)))+1 for k in keys}
+        y = 1 if dotProduct(weights,phi) > 0 else -1
         # END_YOUR_CODE
         return (phi, y)
     return [generateExample() for _ in range(numExamples)]
@@ -80,7 +113,14 @@ def extractCharacterFeatures(n):
     '''
     def extract(x):
         # BEGIN_YOUR_CODE (our solution is 6 lines of code, but don't worry if you deviate from this)
-        raise Exception("Not implemented yet")
+        x_nospace = ''.join(c for c in x if c not in [' ','\t'])
+        w = {}
+        for i in range(len(x_nospace)-(n-1)):
+            if x_nospace[i:i+n] in w.keys():
+                w[x_nospace[i:i+n]] += 1
+            else:
+                w[x_nospace[i:i+n]] = 1
+        return w
         # END_YOUR_CODE
     return extract
 
