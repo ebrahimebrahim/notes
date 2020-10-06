@@ -264,6 +264,12 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
     Your expectimax agent (problem 3)
   """
 
+  def registerInitialState(self, state):
+      print("Value of initial state with depth {}: {}".format(
+        self.depth,
+        self.vmm(state, self.depth, self.index)
+      ))
+
   def getAction(self, gameState):
     """
       Returns the expectimax action using self.depth and self.evaluationFunction
@@ -273,13 +279,34 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
     """
 
     # BEGIN_YOUR_CODE (our solution is 20 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    actions = gameState.getLegalActions(self.index)
+    for d in range(self.depth,0,-1):
+      values = [ self.vmm(gameState.generateSuccessor(self.index, action), d, self.index) for action in actions ]
+      max_value = max(values)
+      maximizing_actions = [actions[i] for i in range(len(actions)) if values[i]==max_value]
+      assert(len(maximizing_actions)>0)
+      if len(maximizing_actions)==1:
+        return maximizing_actions[0]
+      actions = maximizing_actions
+    return random.choice(actions)
     # END_YOUR_CODE
+
+  def vmm(self, s, d, player_index):
+    if s.isWin() or s.isLose():
+      return s.getScore()
+    if d==0:
+      return self.evaluationFunction(s)
+    next_player_index = (player_index + 1) % s.getNumAgents()
+    if player_index==0:
+      return max( self.vmm(s.generateSuccessor(player_index,action), d, next_player_index) for action in s.getLegalActions(player_index) )
+    next_d = d if player_index != s.getNumAgents() - 1 else d-1
+    actions = s.getLegalActions(player_index)
+    return 1.0/len(actions) * sum( self.vmm(s.generateSuccessor(player_index,action), next_d, next_player_index) for action in actions )
 
 ######################################################################################
 # Problem 4a (extra credit): creating a better evaluation function
 
-def betterEvaluationFunction(currentGameState):
+def betterEvaluationFunction(s):
   """
     Your extreme, unstoppable evaluation function (problem 4).
 
@@ -287,7 +314,16 @@ def betterEvaluationFunction(currentGameState):
   """
 
   # BEGIN_YOUR_CODE (our solution is 13 lines of code, but don't worry if you deviate from this)
-  raise Exception("Not implemented yet")
+  score = s.getScore()
+  pacmanPos = s.getPacmanPosition()
+  unscared_ghost_positions = []
+  for g in s.getGhostStates():
+    if g.scaredTimer == 0:
+      unscared_ghost_positions.append(g.getPosition())
+  dist_to_nearest_ghost = min(manhattanDistance(pos,pacmanPos)  for pos in unscared_ghost_positions) if unscared_ghost_positions else 99999
+  dist_to_nearest_food = min(manhattanDistance(pos,pacmanPos)  for pos in s.getFood().asList())
+  ghosts_not_scared = all(g.scaredTimer == 0 for g in s.getGhostStates())
+  return score + (-30)*1/dist_to_nearest_ghost + (-0.1)*dist_to_nearest_food
   # END_YOUR_CODE
 
 # Abbreviation
