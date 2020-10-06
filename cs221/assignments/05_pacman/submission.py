@@ -169,10 +169,15 @@ class MinimaxAgent(MultiAgentSearchAgent):
 
     # BEGIN_YOUR_CODE (our solution is 20 lines of code, but don't worry if you deviate from this)
     actions = gameState.getLegalActions(self.index)
-    values = [ self.vmm(gameState.generateSuccessor(self.index, action), self.depth, self.index) for action in actions ]
-    max_value = max(values)
-    maximizing_indices = [i for i in range(len(actions)) if values[i]==max_value]
-    return actions[random.choice(maximizing_indices)]
+    for d in range(self.depth,0,-1):
+      values = [ self.vmm(gameState.generateSuccessor(self.index, action), d, self.index) for action in actions ]
+      max_value = max(values)
+      maximizing_actions = [actions[i] for i in range(len(actions)) if values[i]==max_value]
+      assert(len(maximizing_actions)>0)
+      if len(maximizing_actions)==1:
+        return maximizing_actions[0]
+      actions = maximizing_actions
+    return random.choice(actions)
     # END_YOUR_CODE
 
   def vmm(self, s, d, player_index):
