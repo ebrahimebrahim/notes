@@ -126,6 +126,11 @@ class MinimaxAgent(MultiAgentSearchAgent):
   """
     Your minimax agent (problem 1)
   """
+  def registerInitialState(self, state):
+      print("Value of initial state with depth {}: {}".format(
+        self.depth,
+        self.vmm(state, self.depth, self.index)
+      ))
 
   def getAction(self, gameState):
     """
@@ -163,8 +168,29 @@ class MinimaxAgent(MultiAgentSearchAgent):
     """
 
     # BEGIN_YOUR_CODE (our solution is 20 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    actions = gameState.getLegalActions(self.index)
+    values = [ self.vmm(gameState.generateSuccessor(self.index, action), self.depth, self.index) for action in actions ]
+    max_value = max(values)
+    maximizing_indices = [i for i in range(len(actions)) if values[i]==max_value]
+    return actions[random.choice(maximizing_indices)]
     # END_YOUR_CODE
+
+  def vmm(self, s, d, player_index):
+    if s.isWin() or s.isLose():
+      return s.getScore()
+    if d==0:
+      return self.evaluationFunction(s)
+    next_player_index = (player_index + 1) % s.getNumAgents()
+    if player_index==0:
+      return max( self.vmm(s.generateSuccessor(player_index,action), d, next_player_index) for action in s.getLegalActions(player_index) )
+    elif player_index != s.getNumAgents() - 1:
+      return min( self.vmm(s.generateSuccessor(player_index,action), d, next_player_index) for action in s.getLegalActions(player_index) )
+    else:
+      return min( self.vmm(s.generateSuccessor(player_index,action), d-1, next_player_index) for action in s.getLegalActions(player_index) )
+
+
+
+
 
 ######################################################################################
 # Problem 2a: implementing alpha-beta
