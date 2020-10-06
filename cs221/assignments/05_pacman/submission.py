@@ -205,14 +205,56 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
     Your minimax agent with alpha-beta pruning (problem 2)
   """
 
+  def registerInitialState(self, state):
+      print("Value of initial state with depth {}: {}".format(
+        self.depth,
+        self.vmm(state, self.depth, self.index)
+      ))
+
   def getAction(self, gameState):
     """
       Returns the minimax action using self.depth and self.evaluationFunction
     """
 
     # BEGIN_YOUR_CODE (our solution is 36 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    actions = gameState.getLegalActions(self.index)
+    for d in range(self.depth,0,-1):
+      values = [ self.vmm(gameState.generateSuccessor(self.index, action), d, self.index) for action in actions ]
+      max_value = max(values)
+      maximizing_actions = [actions[i] for i in range(len(actions)) if values[i]==max_value]
+      assert(len(maximizing_actions)>0)
+      if len(maximizing_actions)==1:
+        return maximizing_actions[0]
+      actions = maximizing_actions
+    return random.choice(actions)
     # END_YOUR_CODE
+
+  # alpha is the largest lower bound seen on a max node of an ancestor
+  # beta is the smallest upper bound seen on a min node of an ancestor
+  def vmm(self, s, d, player_index, alpha=float('-inf'),beta=float('inf')):
+    if s.isWin() or s.isLose():
+      return s.getScore()
+    if d==0:
+      return self.evaluationFunction(s)
+    next_player_index = (player_index + 1) % s.getNumAgents()
+    if player_index==0:
+      max_vmm_succ = float('-inf')
+      for action in s.getLegalActions(player_index):
+        vmm_succ = self.vmm(s.generateSuccessor(player_index,action), d, next_player_index, alpha, beta) 
+        alpha = max(alpha, vmm_succ)
+        max_vmm_succ = max(max_vmm_succ, vmm_succ)
+        if vmm_succ > beta : break # prune
+      return max_vmm_succ
+    next_d = d if player_index != s.getNumAgents() - 1 else d-1
+    min_vmm_succ = float('inf')
+    for action in s.getLegalActions(player_index):
+      vmm_succ = self.vmm(s.generateSuccessor(player_index,action), next_d, next_player_index, alpha, beta)
+      beta = min(beta, vmm_succ)
+      min_vmm_succ = min(min_vmm_succ,vmm_succ)
+      if vmm_succ < alpha : break # prune
+    return min_vmm_succ
+
+
 
 ######################################################################################
 # Problem 3b: implementing expectimax
