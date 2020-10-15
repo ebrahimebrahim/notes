@@ -178,7 +178,14 @@ class ParticleFilter(object):
     ##################################################################################
     def observe(self, agentX, agentY, observedDist):
         # BEGIN_YOUR_CODE (our solution is 10 lines of code, but don't worry if you deviate from this)
-        raise Exception("Not implemented yet")
+        weights = {}
+        for row,col in self.particles:
+            x,y = util.colToX(col), util.rowToY(row)
+            true_d = math.sqrt((agentX-x)**2+(agentY-y)**2) #True dist under assumption that car is at (x,y)
+            weights[(row,col)] = self.particles[(row,col)] * util.pdf(true_d,Const.SONAR_STD,observedDist)
+        self.particles = collections.defaultdict(int)
+        for _ in range(self.NUM_PARTICLES):
+            self.particles[util.weightedRandomChoice(weights)] += 1
         # END_YOUR_CODE
 
         self.updateBelief()
@@ -208,7 +215,11 @@ class ParticleFilter(object):
     ##################################################################################
     def elapseTime(self):
         # BEGIN_YOUR_CODE (our solution is 6 lines of code, but don't worry if you deviate from this)
-        raise Exception("Not implemented yet")
+        newParticles = collections.defaultdict(int)
+        for tile in self.particles:
+            for _ in range(self.particles[tile]):
+              newParticles[util.weightedRandomChoice(self.transProbDict[tile])] += 1
+        self.particles = newParticles
         # END_YOUR_CODE
 
     # Function: Get Belief
