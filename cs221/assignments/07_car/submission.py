@@ -46,7 +46,12 @@ class ExactInference(object):
 
     def observe(self, agentX, agentY, observedDist):
         # BEGIN_YOUR_CODE (our solution is 6 lines of code, but don't worry if you deviate from this)
-        raise Exception("Not implemented yet")
+        for row in range(self.belief.getNumRows()):
+            for col in range(self.belief.getNumCols()):
+                x,y = util.colToX(col), util.rowToY(row)
+                true_d = math.sqrt((agentX-x)**2+(agentY-y)**2) #True dist under assumption that car is at (x,y)
+                self.belief.setProb(row,col,self.belief.getProb(row,col)*util.pdf(true_d,Const.SONAR_STD,observedDist))
+        self.belief.normalize()
         # END_YOUR_CODE
 
     ##################################################################################
@@ -70,7 +75,14 @@ class ExactInference(object):
     def elapseTime(self):
         if self.skipElapse: return ### ONLY FOR THE GRADER TO USE IN Problem 2
         # BEGIN_YOUR_CODE (our solution is 6 lines of code, but don't worry if you deviate from this)
-        raise Exception("Not implemented yet")
+        for row in range(self.belief.getNumRows()):
+            for col in range(self.belief.getNumCols()):
+                self.belief.setProb(row,col,0.0)
+                for row_prev in range(self.belief.getNumRows()):
+                    for col_prev in range(self.belief.getNumCols()):
+                        if ((row_prev,col_prev),(row,col)) in self.transProb:
+                            self.belief.addProb(row,col,self.belief.getProb(row_prev,col_prev)*self.transProb[((row_prev,col_prev),(row,col))])
+        self.belief.normalize()
         # END_YOUR_CODE
 
     # Function: Get Belief
