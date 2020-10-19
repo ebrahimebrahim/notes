@@ -1,3 +1,64 @@
 N1
 
-152: CS221 HW7 Problem 1 - bayesian networks exercise
+152: CS221 HW7, bayesian networks exercises
+2: Notes from reading Hastie, Elements of Statistical Learning
+5: Notes from reading Bishop, Pattern Recognition and Machine learning
+7: Bishop notes, sum rule and product rule of probability
+8: cumulative distribution
+9: covariance between random variables
+10: independence of random variables
+11: maximum likelihood
+13: bias of sample variance
+14: Bishop terminology, generative vs discriminative models for inference and decisions
+16: Bernoulli distributed random variable
+17: Binomial distribution
+19: Bayesian improvements to Bernoulli distribution learning, Beta distribution
+20: Chaining Bayesian updates
+21: Algebraic tricks for working with guassian distributions
+28: Vulkan, overview of steps to drawing a triangle
+31: Notes from Stroustrup, A Tour of C++
+31: C++ auto, references, declarator operators
+32: C++ union, enum class
+32: Recommendations from Timur Doumler's C++ talk on many types of initialization
+34: C++ structured binding to achieve python's tuple magic
+34: C++ virtual methods and pure virtual
+35: C++ polymorphic types, virtual destructors, vtables, dynamic_cast, unique_ptr
+36: C++ various types of constructors and advice
+37: C++ lvalues and rvalues, initialization vs assignment, copy and move
+38: C++ user defined literals
+39: C++ Dan Saks lecture on scope, storage duration, and linkage. static, extern, defs and refs, translation units
+44: OpenGL, overview of steps to drawing a triangle
+47: Blender hotkeys to remember, notes on 3 point lighting
+48: C++ string and string_view
+49: Blender overview on render and output proprerties
+51: Every positive definite matrix is A^T A
+52: Columns of A^{-1} are orthogonal wrt the posdef symmetric bilinear form A^T A
+55: Blender on specular vs roughness
+56: OpenGL perspective propjection initial notes
+64: CS221 (Stanford AI course) early lecture notes, feature vectors, linear predictors
+66: CS221 neural nets, computation graph, backpropagation
+67: OpenGL perspective projection, glm's lookAt with derivation of what it does
+70: CS221 HW1
+73: CS221 Lec 4, controlling model complexity, k-means clustering
+76: CS221 Lec 5, search problems, backtracking, depth first, breadth first, uniform cost search
+78: CS221 HW2
+81: CS221 Lec 6, uniform cost search, structured perceptron, A* search, admissible and consistent heuristics
+88: Godot game and workflow ideas for after Knock the Rock
+89: CS221 Lec 7, Markov decision process (MDP), policy evaluation, value iteration
+94: CS221 Lec 8, Reinforcement learning, monte carlo, bootstrapping (SARSA), Q-learning, epsilon-greedy policy,
+104: Knock the Rock game logic improvement
+106: CS221 Lec 9, adversarial zero sum games, expectimax, minimax, evaluation functions, alpha-beta pruning
+117: CS221 Lec 10, creating evaluation functions, temporal difference (TD) learning algorithm
+119: CT game project questions
+119: CS221 Lec 10 continued, pure and mixed strategies, von neumann minimax thm, nash equilibrium, nash existence thm
+125: CS221 Lec 11, variable based models, constraint satisfaction problems (CSP), factor graphs, backtracking, AC-3 
+130: CS221 Lec 12, beam search, local search like ICM and Gibbs sampling, conditioning, variable elimination
+137: CS221 Lec 13, Bayesian networks, probabilistic inference
+146: CS221 Lec 14, hidden markov models (HMM), forward backward algorithm, particle filtering, gibbs sampling
+157: CS221 Lec 15, learning Bayesian network paremeters, unsupervised, expectation maximization (EM) algorithm
+
+N2
+2: CS221 Lec 16, Formal logics, syntax, semantics, inference, propositional logic
+4: pattern matching algorithm idea for ingredients game
+5: CS221 Lec 16, Entailment, tell/ask, model checking, soundness, completeness, horn clauses
+
