@@ -13,7 +13,7 @@ def formula1a():
     California = Atom('California')       # whether we're in California
     Rain = Atom('Rain')                   # whether it's raining
     # BEGIN_YOUR_CODE (our solution is 1 line of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    return Implies(And(Summer,California), Not(Rain))
     # END_YOUR_CODE
 
 # Sentence: "It's wet if and only if it is raining or the sprinklers are on."
@@ -23,7 +23,7 @@ def formula1b():
     Wet = Atom('Wet')                # whether it it wet
     Sprinklers = Atom('Sprinklers')  # whether the sprinklers are on
     # BEGIN_YOUR_CODE (our solution is 1 line of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    return Equiv(Wet,Or(Rain,Sprinklers))
     # END_YOUR_CODE
 
 # Sentence: "Either it's day or night (but not both)."
@@ -32,7 +32,7 @@ def formula1c():
     Day = Atom('Day')     # whether it's day
     Night = Atom('Night') # whether it's night
     # BEGIN_YOUR_CODE (our solution is 1 line of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    return And(Or(Day,Night),Not(And(Day,Night)))
     # END_YOUR_CODE
 
 ############################################################
@@ -46,7 +46,7 @@ def formula2a():
 
     # Note: You do NOT have to enforce that the mother is a "person"
     # BEGIN_YOUR_CODE (our solution is 1 line of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    return Forall('$x',Implies(Person('$x'),Exists('$y',Mother('$x','$y'))))
     # END_YOUR_CODE
 
 # Sentence: "At least one person has no children."
@@ -57,7 +57,7 @@ def formula2b():
 
     # Note: You do NOT have to enforce that the child is a "person"
     # BEGIN_YOUR_CODE (our solution is 1 line of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    return Exists('$p',And(Person('$p'),  Forall('$c',Not(Child('$p','$c')))   ))
     # END_YOUR_CODE
 
 # Return a formula which defines Daughter in terms of Female and Child.
@@ -68,7 +68,7 @@ def formula2c():
     def Child(x, y): return Atom('Child', x, y)        # whether x has a child y
     def Daughter(x, y): return Atom('Daughter', x, y)  # whether x has a daughter y
     # BEGIN_YOUR_CODE (our solution is 4 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    return Forall('$p',Forall('$c',Equiv(And(Female('$c'),Child('$p','$c')), Daughter('$p','$c') )))
     # END_YOUR_CODE
 
 # Return a formula which defines Grandmother in terms of Female and Parent.
@@ -79,7 +79,15 @@ def formula2d():
     def Parent(x, y): return Atom('Parent', x, y)            # whether x has a parent y
     def Grandmother(x, y): return Atom('Grandmother', x, y)  # whether x has a grandmother y
     # BEGIN_YOUR_CODE (our solution is 5 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    def_with_vars = Equiv(
+      Grandmother('$c','$g'),
+      And(Female('$g'),
+        Exists('$p',And(
+          Parent('$c','$p'), Parent('$p','$g')
+        ))
+      )
+    )
+    return Forall('$c',Forall('$g',def_with_vars))
     # END_YOUR_CODE
 
 ############################################################
@@ -110,7 +118,13 @@ def liar():
     formulas.append(Equiv(TellTruth(john), Not(CrashedServer(john))))
     # You should add 5 formulas, one for each of facts 1-5.
     # BEGIN_YOUR_CODE (our solution is 11 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    formulas.append(Equiv(TellTruth(susan), CrashedServer(nicole)))
+    formulas.append(Equiv(TellTruth(mark), CrashedServer(susan)))
+    formulas.append(Equiv(TellTruth(nicole), Not(TellTruth(susan))))
+    def true_for_exactly_one(p): # p is a predicate like TellTruth
+      return Exists('$x',And(p('$x') , Forall('$y',Implies(Not(Equals('$x','$y')),Not(p('$y')))) ) )
+    formulas.append(true_for_exactly_one(TellTruth))
+    formulas.append(true_for_exactly_one(CrashedServer))
     # END_YOUR_CODE
     query = CrashedServer('$x')
     return (formulas, query)
@@ -142,7 +156,33 @@ def ints():
     formulas = []
     query = None
     # BEGIN_YOUR_CODE (our solution is 23 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    x = '$x'
+    y = '$y'
+    z = '$z'
+    formulas.append(Forall(x,
+      Exists(y,
+        And( Successor(x,y),
+          And( Not(Equals(x,y)) ,
+            Forall(z, Implies(Successor(x,z), Equals(y,z) ) )
+          )
+        )
+      )
+    ))
+    formulas.append(Forall(x,
+      And(Or(Even(x),Odd(x)),Not(And(Even(x),Odd(x))))
+    ))
+    formulas.append(Forall(x,Forall(y,
+      Implies( And(Even(x),Successor(x,y)) , Odd(y) )
+    )))
+    formulas.append(Forall(x,Forall(y,
+      Implies( And(Odd(x),Successor(x,y)) , Even(y) )
+    )))
+    formulas.append(Forall(x,Forall(y,
+      Implies( Successor(x,y) , Larger(y,x) )
+    )))
+    formulas.append(Forall(x,Forall(y,Forall(z,
+      Implies( And(Larger(z,y),Larger(y,x)) , Larger(z,x) )
+    ))))
     # END_YOUR_CODE
     query = Forall('$x', Exists('$y', And(Even('$y'), Larger('$y', '$x'))))
     return (formulas, query)
@@ -164,17 +204,31 @@ def createRule1():
     # Return a GrammarRule for 'every $Noun $Verb some $Noun'
     # Note: universal quantification should be outside existential quantification.
     # BEGIN_YOUR_CODE (our solution is 3 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    return GrammarRule('$Clause', ['every', '$Noun', '$Verb', 'some', '$Noun'],
+        lambda args: Forall('$x', Implies(Atom(args[0].title(), '$x'), Exists('$y', And( Atom(args[2].title(),'$y') , Atom(args[1].title(), '$x','$y') )  )    )))
     # END_YOUR_CODE
 
 def createRule2():
     # Return a GrammarRule for 'there is some $Noun that every $Noun $Verb'
     # BEGIN_YOUR_CODE (our solution is 3 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    return GrammarRule('$Clause', ['there', 'is', 'some', '$Noun', 'that', 'every', '$Noun', '$Verb'],
+        lambda args: Exists('$x', And( Atom(args[0].title(),'$x') ,
+          Forall('$y',
+            Implies(Atom(args[1].title(),'$y'),
+              Atom(args[2].title(),'$y','$x')
+            )
+          )
+        ))
+    )
     # END_YOUR_CODE
 
 def createRule3():
     # Return a GrammarRule for 'if a $Noun $Verb a $Noun then the former $Verb the latter'
     # BEGIN_YOUR_CODE (our solution is 4 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    return GrammarRule('$Clause', ['if', 'a', '$Noun','$Verb','a','$Noun','then', 'the', 'former','$Verb','the', 'latter'],
+        lambda args: Forall('$x', Forall( '$y',
+          Implies( And( Atom(args[0].title(),'$x') , Atom(args[2].title(),'$y') ) ,
+            Implies( Atom(args[1].title(),'$x','$y') , Atom(args[3].title(),'$x','$y') )
+          )
+    )))
     # END_YOUR_CODE
