@@ -67,5 +67,5 @@ N2
 15: C++, processing string data, istringstream, references and initialization
 16: CS221 Lec 18, deep learning keywords to lookup for review
 17: C++, member initalization, classes and structs, invariants, encapsulation, scope resolution
-18: C++ try and catch, stdexcept, cassert and assertions, std::optional
+18: C++ try and catch, stdexcept, cassert and assertions, optional for maybe type
 19: C++, access specifiers public private protected, for members and inheritance
