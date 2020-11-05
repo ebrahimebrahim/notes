@@ -57,13 +57,14 @@ Each layer solves a bunch of sub-problems.
 You can think of it as though each layer is a feature extractor for the next.
 
 Taking gradient of loss function can be done in a systematic way as follows:
+
 - Create computation graph for expression, where nodes are building blocks like `+` and `*` and `sum`, etc.
 - Label edges with partial derivatives of the building blocks wrt their inputs.
 - Observe that the chain rule is now simply multiplication of edges along paths. In other words if you want to know the deriv of one node value wrt one of its descendents, just multiply edge values along the path joining them.
 - Define forward values, `f_i`s, to be the values on the nodes-- i.e. the values of subexpressions. Define backward values, `g_i`s, to be the derivatives of the output wrt `f_i`s -- i.e. how changing that node influces the root.
 - Backpropagation algorithm:
-    - Forward pass: Compute each `f_i`, leaves to root. So basically just compute the top level expression and make sure to remember the values of all subexpressions along the way
-    - Backward pass: Compute each `g_i`, root to leaves. This is just a matter of traveling down paths to the nodes you're interested in taking a deriv wrt, and along the way multiplying the derivative expressions that you labeled on edges, which you can now compute because you have all the `f_i`s in place.
+  - Forward pass: Compute each `f_i`, leaves to root. So basically just compute the top level expression and make sure to remember the values of all subexpressions along the way
+  - Backward pass: Compute each `g_i`, root to leaves. This is just a matter of traveling down paths to the nodes you're interested in taking a deriv wrt, and along the way multiplying the derivative expressions that you labeled on edges, which you can now compute because you have all the `f_i`s in place.
 
 ## Nearest neighbors
 
@@ -81,14 +82,17 @@ and the ground truth.
 
 
 Model complexity tradeoff:
+
 - small hypothesis class leads to high approx. error, but easy to get learning algorithm to have low est. error.
 - large hypothesis class leads to smaller approx. error but more difficulty getting a learning algorithm that doesn't have high est. error
 
 Control model complexity by e.g.:
+
 - controlling dimensionality of feature space by adding or removing features
 - contolling norm of weights: regularization, early stopping
 
 Workflow:
+
 - Split data into train, val, test sets
 - Look at data to get intuition
 - Repeat the following:
@@ -100,4 +104,25 @@ Workflow:
 
 ## K-means clustering
 
+Fix a number of clusters K.
+The goal is to map data points to cluster labels 1,...,K.
+Each cluster will have an associated centroid.
+So there are two things we'd like to learn from the data here:
 
+- the assignment of data points to clusters
+- the locations of centroids
+
+K means loss:
+sum over the data points of the squared distance between data points and the centroid of their associated cluster.
+
+- Fixing the cluster assignment, it's easy to choose centroids to minimize the loss: just take means of clusters.
+- Fixing the centroids, it's easy to find the best cluster assignment to minimize the loss: just assign each point to
+the cluster whose centroid is nearest.
+
+K-means algorithm:
+attemp to optimize jointly by initializing centroids randomly, and then
+alternating in choosing the best cluster assignments and the best centroids.
+Continue until convergence.
+
+
+## 
