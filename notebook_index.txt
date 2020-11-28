@@ -69,3 +69,24 @@ N2
 17: C++, member initalization, classes and structs, invariants, encapsulation, scope resolution
 18: C++ try and catch, stdexcept, cassert and assertions, optional for maybe type
 19: C++, access specifiers public private protected, for members and inheritance
+20: C++, friend, virtual method, template functions
+23: CPU bit size, speed, L1 and L2 and L3 caches, lscpu
+24: C++, temporal and spatial locality for cache-friendly code
+25: C++ virtual memory, address space, stack, heap
+26: C++ static, automatic, and dynamic allocation
+27: C++ stack pointer, stack allocation and deallocaton
+28: C++ placement new, constructing an object at preallocated memory, overloading new/delete
+30: C++ copy policies, no copy, deep copy, shared ownership, l-values and pr-values
+31: C++ rvalue references
+32: C++ overloading assignment operator and self-assignment, copies that get made w/o RVO
+33: C++ RAII and rule of five, smart pointers, unique_ptr, shared_ptr, weak_ptr
+34: C++ converting unique_ptr to shared_ptr, and other conversions, circular references
+35: C++ type signature with smart pointer indicating object sink
+36: processes, scheduler, threads
+37: C++ lambda
+38: C++ std async, task level concurrent programming, thread pools
+39: C++ data races and how to avoid
+40: C++ mutexes, Sutter's view on the new meaning of const and mutable as thread-safe
+41: C++ mutable member function, mutexes deadlock, lock_guard and unique_lock
+42: Chalice Chaser early game ideas
+
