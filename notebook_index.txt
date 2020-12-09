@@ -89,4 +89,15 @@ N2
 40: C++ mutexes, Sutter's view on the new meaning of const and mutable as thread-safe
 41: C++ mutable member function, mutexes deadlock, lock_guard and unique_lock
 42: Chalice Chaser early game ideas
+56: Udacity AI for healthcare course (AIH), types of clinical imaging, PACS
+57: AIH, microscopy, diagnostic vs screening imaging, classifiation, segmentation
+58: AIH, radiologist queue
+59: AIH, confusion matrix, sensitivity, recall, specificity, precision, accuracy
+61: AIH, clinical workflow considerations, FDA classes, 510K, PMA
+62: AIH, DICOM, pydicom, pixel_array
+63: AIH, exploratory data analysis, co-occurance matrix, train_test_split
+64: AIH, train_test_split, TV show recommendations
+65: AIH, image preprocssing for CNNs, keras ImageDataGenerator
+66: failed attempt to prove an information entropy inequality
+67: AIH, FDA intended use, indications for use, precision-recall curve, F1 score
 
