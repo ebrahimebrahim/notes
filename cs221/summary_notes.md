@@ -16,7 +16,7 @@ Minibatch gradient descent sits in between stochastic and non-stochastic gradien
 
 ## Feature extraction
 
-A good way to it is in terms of *feature templates*.
+A good way to view it is in terms of *feature templates*.
 These are like feature descriptions with "blanks"; filling in the blanks in different ways
 creates a group of features that are all computed in the same way.
 
@@ -125,4 +125,49 @@ alternating in choosing the best cluster assignments and the best centroids.
 Continue until convergence.
 
 
-## 
+
+## Search Problems - Inference
+
+A _search problem_ consists of
+
+- a set `States` whose elements are called states, and a set `Actions` whose elements are called actions
+- a start state
+- a function `Actions(s)` that assigns to each state a set of actions.
+- a function `Cost(s,a)` that assigns to each state `s` and action `a` in `Actions(s)` a real number cost.
+- a function `Succ(s,a)` that assigns to each state `s` and action `a` in `Actions(s)` a successor state.
+- a function `IsEnd(s)` that tells us whether a given state is a goal state.
+
+So it's pretty much just a directed graph with weights on the edges, a labeled start node, and labeled goal nodes.
+
+Directly doing a breadth-first or depth-first search is not that great and
+can unncessarily expand the digraph into a tree.
+Instead, one can use dynamic programming to avoid this.
+But if the digraph has cycles then you can get an infinte recursion loop this way.
+_Uniform cost search_ (aka Dijkstra's algorithm) will be able to handle that:
+
+- start with all states in set `unexplored` except for the start states, which is the only element of the priority queue `frontier`
+- repeat the following till `frontier` is empty:
+  - pop off the top of `frontier` (i.e. the lowest priority element; priority here represents cost to get to state from start, the lowest cost found so far). call the state you just popped `s`, and call its priority `p`.
+  - if `IsEnd(s)` then stop and return solution (see comment below)
+  - add `s` to set `explored`
+  - for each `a` in `Actions(s)`:
+    - get successor `s'=Succ(s,a)`
+    - if `s'` is in `explored`, continue (skip this iteration)
+    - update `frontier` with `s'` and priority being `p + Cost(s,a)` (this means that if `s'` was already in frontier then its new priority shall be the min of its old priority and `p + Cost(s,a)`)
+
+About returning solution: I've omitted in this description the details of keeping track of the optimal path found to
+reach a state. You can do this by keeping backpointers from states you've explored to the states that precede them in the optimal path to them.
+
+
+Uniform cost search requires costs to be nonnegative in order to be correct.
+
+TODO: Astar stuff [N1- 84, 85, 86]
+
+## Search Problems - Learning
+
+TODO: structured perceptron [N1- 83,84]
+
+
+## Markov Decision Processes
+
+TODO: start from [N1 -89]
