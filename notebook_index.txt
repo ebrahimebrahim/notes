@@ -100,4 +100,6 @@ N2
 65: AIH, image preprocssing for CNNs, keras ImageDataGenerator
 66: failed attempt to prove an information entropy inequality
 67: AIH, FDA intended use, indications for use, precision-recall curve, F1 score
+70: Hilbert space exercises from Berberian's book
+88: tangyuan recipe
 
