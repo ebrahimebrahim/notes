@@ -108,4 +108,14 @@ N2
 79: Berberian Ex II.6.1, 3, II.7.1-8
 84: Berberian Ex II.8.1-3
 88: tang yuan recipe
-
+95: AIH, 3D medical imaging intro, choosing an imaging study, contrast agents
+96: AIH, who uses medical images, bayes theorem in terms of odds (pt 1)
+99: AIH, CT scanner output values interpretation, Hounsfield units
+100: points system definition
+101: AIH, DICOM heirarchy (patient, study, series, instance)
+105: AIH, losses for segmentation, dice coefficient equals F1 score
+106: AIH, problems with dice coeff, Hausdorff distance
+107: AIH, bayes theorem in terms of odds (pt 2)
+108: AIH, likelihood ratio in terms of sensitivity and specificity
+109: AIH, software verification vs validation, FDA validation plan
+112: Jech's Set Theory, Exercise 1.2
