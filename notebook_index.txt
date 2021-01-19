@@ -125,10 +125,10 @@ N2
 121: AIH, electronic health record line/encounter/patient level, level conversions
 124: Jech 1.10-14
 127: push day exercise notes
-128: Jech Theorem 2.8 proof rewrite: w.o. sets are initial segs of each other up to iso
+128: Jech Theorem 2.8 proof rewrite- w.o. sets are initial segs of each other up to iso
 131: Jech working out display (2.3) on p20, every set of ordinals is well ordered
 132: Jech, Ord is a proper class, pull day exercise notes
-133: Jech Theorem 2.12 proof rewrite: well-ordered sets are iso to unique ordinals
+133: Jech Theorem 2.12 proof rewrite- well-ordered sets are iso to unique ordinals
 135: thig sticker pack planning
 136: Jech, the smallest nonzero limit ordinal is an inductive set
 137: leg day exercise notes
