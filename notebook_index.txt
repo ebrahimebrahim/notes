@@ -118,4 +118,17 @@ N2
 107: AIH, bayes theorem in terms of odds (pt 2)
 108: AIH, likelihood ratio in terms of sensitivity and specificity
 109: AIH, software verification vs validation, FDA validation plan
-112: Jech's Set Theory, Exercise 1.2
+112: Jech's Set Theory, Exercise 1.2-5
+118: Jech Ex 1.7-9
+122: Jech Ex 1.6
+120: AIH, diagnosis codes, procedure codes, drug codes
+121: AIH, electronic health record line/encounter/patient level, level conversions
+124: Jech 1.10-14
+127: push day exercise notes
+128: Jech Theorem 2.8 proof rewrite: w.o. sets are initial segs of each other up to iso
+131: Jech working out display (2.3) on p20, every set of ordinals is well ordered
+132: Jech, Ord is a proper class, pull day exercise notes
+133: Jech Theorem 2.12 proof rewrite: well-ordered sets are iso to unique ordinals
+135: thig sticker pack planning
+136: Jech, the smallest nonzero limit ordinal is an inductive set
+137: leg day exercise notes
