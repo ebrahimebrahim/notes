@@ -132,3 +132,10 @@ N2
 135: thig sticker pack planning
 136: Jech, the smallest nonzero limit ordinal is an inductive set
 137: leg day exercise notes
+
+N3
+
+1: Enderton- A Mathematical Intro to Logic, compactness theorem
+2: Enderton notes, relating compactness in logic to topology
+3: things to try with soy milk
+
