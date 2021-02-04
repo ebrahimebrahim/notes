@@ -138,4 +138,20 @@ N3
 1: Enderton- A Mathematical Intro to Logic, compactness theorem
 2: Enderton notes, relating compactness in logic to topology
 3: things to try with soy milk
-
+6: Jech, strong transfinite induction up to a particular ordinal
+6: Jech, transfinite recursion (general version)
+8: AIH, finding zeros of a digitally sampled signal
+8: Jech, transfinite recursion (corollary)
+9: AIH, Nyquist frequency
+10: Jech, first attempt at associativity of ordinal addition
+11: Jech, ordinal plus nonzero limit ordinal is a limit ordinal
+13: Jech, different characterizations of limit ordinal
+14: Jech, ordinal addition on left preserves order 
+14: Jech, completion of proof that ordinal addition is associative
+15: Arnold classical mechanics notes, definition of galilean space
+16: Zangwill reading notes, how gradient works in different coords
+18: Arnold, galilean group of a galilean space
+19: Arnold, affine maps, how to define them
+20: Jech, ordinal multiplicaton on left preserves order
+22: Jech, ordinal mult left-distributes over ordinal addition
+24: Jech, ordinal multiplication is associative
