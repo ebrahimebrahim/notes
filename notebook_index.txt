@@ -155,3 +155,11 @@ N3
 20: Jech, ordinal multiplicaton on left preserves order
 22: Jech, ordinal mult left-distributes over ordinal addition
 24: Jech, ordinal multiplication is associative
+26: Zangwill, recovering understanding of divergence
+29: Jech, notes on viewing ordinal addition as union of well ordered sets
+30: Arnold, galilean coord system, galilean coord space, uniformly moving observer
+31: Zangwill, recovering understanding of curl
+34: AIH, atria, ventricles, EKG signal, Pan-Tompkins algorithm, QRS peaks
+35: Jech, division for oridnals, ordinal addition weakly preserves order on right
+39: Jech, order preservation of ordinal exponentation
+40: tangyuan recipe, again
