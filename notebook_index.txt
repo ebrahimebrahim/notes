@@ -163,3 +163,13 @@ N3
 35: Jech, division for oridnals, ordinal addition weakly preserves order on right
 39: Jech, order preservation of ordinal exponentation
 40: tangyuan recipe, again
+41: Arnold, motion in R^n, abstract galilean space, world line
+42: How to continue exploring AI in healthcare without a course
+43: Jech, Cantor's normal form theorem, Thm 2.26
+46: Jech, ordinal mult respects unstrict order on right
+50: chinese stir fried green beans
+51: factorio rail signals
+52: how to fix grub on papaya after windows 10 update broke it
+53: Jech, comments on proof of thm 2.27
+54: Arnold, newton's principle, galilean relativity, mechanical system is ODE
+55: Arnold, relativistic constraints on which mechanical systems are possible
